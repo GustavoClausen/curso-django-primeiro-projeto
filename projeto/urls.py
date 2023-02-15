@@ -15,7 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.http import HttpResponse
+
+
+def my_view(request):
+    return HttpResponse('Uma string da página <b> SOBRE </b>')
+
+
+def my_root(request):
+    return HttpResponse('Essa é a página <b> ROOT </b>')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('sobre/', my_view),
+    path('', my_root)
 ]
