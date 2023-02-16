@@ -3,7 +3,10 @@ from django.shortcuts import render
 
 
 def root_page(request):
-    return render(request, 'recipes/home.html')
+    return render(request, 'recipes/home.html', {
+        'name': 'Gustavo',
+        'lastname': 'Clausen'
+    })
 
 
 def about_page(request):
@@ -11,4 +14,4 @@ def about_page(request):
 
 
 def contact_page(request):
-    return HttpResponse('Essa é a página de <b> CONTATO 2</b>')
+    return render(request, 'temp/temp.html')
