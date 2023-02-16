@@ -1,8 +1,9 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def root_page(request):
-    return HttpResponse('Essa é a página <b> ROOT 2</b>')
+    return render(request, 'recipes/home.html')
 
 
 def about_page(request):
