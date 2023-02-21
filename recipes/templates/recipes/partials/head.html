@@ -147,6 +147,16 @@
             transition: all 300ms ease-in-out;
         }
 
+        .main-content {
+            padding-top: 0;
+        }
+
+        .main-content-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: var(--spacing-gutter-large);
+        }
+
         .search-form:focus-within {
             border-color: var(--color-primary);
             background-color: var(--color-white);
