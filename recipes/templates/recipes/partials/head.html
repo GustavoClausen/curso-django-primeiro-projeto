@@ -202,7 +202,7 @@
         }
 
         .recipe-author a {
-            color: var(--color-primary);
+            color: var(--color-primary-dark);
             transition: all 170ms ease-in-out;
             text-decoration: none;
         }
@@ -227,6 +227,25 @@
             text-align: center;
             padding: 1.5rem var(--spacing-gutter-medium);
             transition: all 200ms ease-in-out;
+        }
+
+        .main-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--color-primary-dark);
+            color: var(--color-white);
+            padding: var(--spacing-gutter-large);
+        }
+
+        .main-footer a {
+            color: var(--color-white);
+            text-decoration: none;
+            transition: all 200ms ease-in-out;
+        }
+
+        .main-footer a:hover {
+            filter: brightness(.8);
         }
 
         .search-form:focus-within {
@@ -257,7 +276,7 @@
         }
 
         .recipe-author a:hover {
-            color: var(--color-primary-dark);
+            color: var(--color-primary-dark-hover);
         }
 
         .recipe-footer a:hover {
