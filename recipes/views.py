@@ -6,3 +6,7 @@ def root_page(request):
         'name': 'Gustavo',
         'lastname': 'Clausen'
     })
+
+
+def recipe(request, id):
+    return render(request, 'recipes/pages/recipe-view.html')
