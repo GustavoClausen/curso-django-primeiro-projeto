@@ -6,30 +6,42 @@ from recipes import views
 
 class RecipeViewsTest(TestCase):
 
-    def test_recipe_rootpage_view_function_is_correct(self):
+    def test_if_rootpage_function_is_correct(self):
         view = resolve(reverse('recipes:home'))
         self.assertIs(view.func, views.root_page)
 
-    def test_recipe_category_view_function_is_correct(self):
-        view = resolve(reverse('recipes:category', kwargs={'category_id': 1}))
-        self.assertIs(view.func, views.category)
-
-    def test_recipe_detail_view_function_is_correct(self):
-        view = resolve(reverse('recipes:recipe', kwargs={'id': 1}))
-        self.assertIs(view.func, views.recipe)
-
-    def test_recipe_home_view_returns_status_code_200_ok(self):
+    def test_if_rootpage_function_returns_status_code_200(self):
         response = self.client.get(reverse('recipes:home'))
         self.assertEqual(response.status_code, 200)
 
-    def test_recipe_home_view_loads_correct_template(self):
+    def test_if_rootpage_function_loads_correct_template(self):
         response = self.client.get(reverse('recipes:home'))
         self.assertTemplateUsed(response, 'recipes/pages/home.html')
 
     def test_home_template_shows_no_recipes_found_if_there_not_recipes(self):
-
         response = self.client.get(reverse('recipes:home'))
         self.assertIn(
             'Ainda não há receitas publicadas.',
             response.content.decode('utf-8')
         )
+
+    def test_if_category_function_is_correct(self):
+        view = resolve(reverse('recipes:category',
+                       kwargs={'category_id': 1}))
+        self.assertIs(view.func, views.category)
+
+    def test_if_category_function_returns_404_if_there_not_category_req(self):
+        response = self.client.get(
+            reverse('recipes:category', kwargs={'category_id': 100})
+        )
+        self.assertEqual(response.status_code, 404)
+
+    def test_if_recipe_function_is_correct(self):
+        view = resolve(reverse('recipes:recipe', kwargs={'id': 1}))
+        self.assertIs(view.func, views.recipe)
+
+    def test_if_recipe_function_returns_404_if_there_not_recipe_required(self):
+        response = self.client.get(
+            reverse('recipes:recipe', kwargs={'id': 100})
+        )
+        self.assertEqual(response.status_code, 404)
