@@ -58,6 +58,18 @@ class RecipeViewsTest(RecipeTestBase):
         )
         self.assertEqual(response.status_code, 404)
 
+    def test_if_category_templates_loads_recipes(self):
+
+        needed_title = 'This is a category test'
+
+        self.make_recipe(title=needed_title)
+
+        response = self.client.get(reverse('recipes:category', args=(1,)))
+
+        content = response.content.decode('utf-8')
+
+        self.assertIn(needed_title, content)
+
     def test_if_recipe_function_is_correct(self):
         view = resolve(reverse('recipes:recipe', kwargs={'id': 1}))
         self.assertIs(view.func, views.recipe)
@@ -67,3 +79,22 @@ class RecipeViewsTest(RecipeTestBase):
             reverse('recipes:recipe', kwargs={'id': 100})
         )
         self.assertEqual(response.status_code, 404)
+
+    def test_if_recipe_template_loads_correct_recipe(self):
+
+        needed_title = 'This is detail page - It loads a recipe'
+
+        # Need a recipe for this recipe
+        self.make_recipe(title=needed_title)
+
+        response = self.client.get(reverse(
+            'recipes:recipe',
+            kwargs={
+                'id': 1,
+            }
+        )
+        )
+
+        content = response.content.decode('utf-8')
+
+        self.assertIn(needed_title, content)
