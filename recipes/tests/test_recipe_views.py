@@ -47,6 +47,19 @@ class RecipeViewsTest(RecipeTestBase):
         self.assertIn('5 Porções', content)
         self.assertIn('Jose', content)
 
+    def test_if_home_templates_not_loads_recipe_not_published(self):
+        """
+        Tests that unpublished recipes are actually not rendered.
+        Testa se receitas não publicadas realmente não são renderizadas.
+        """
+
+        self.make_recipe(is_published=False)
+
+        response = self.client.get(reverse('recipes:home'))
+        content = response.content.decode('utf-8')
+
+        self.assertIn('Ainda não há receitas publicadas.', content)
+
     def test_if_category_function_is_correct(self):
         view = resolve(reverse('recipes:category',
                        kwargs={'category_id': 1}))
@@ -69,6 +82,22 @@ class RecipeViewsTest(RecipeTestBase):
         content = response.content.decode('utf-8')
 
         self.assertIn(needed_title, content)
+
+    def test_if_category_templates_not_loads_recipe_not_published(self):
+        """
+        Tests that unpublished recipes are actually not rendered.
+        Testa se receitas não publicadas realmente não são renderizadas.
+        """
+
+        recipe = self.make_recipe(is_published=False)
+
+        response = self.client.get(reverse(
+            'recipes:recipe',
+            kwargs={'id': recipe.category.id}
+        )
+        )
+
+        self.assertEqual(response.status_code, 404)
 
     def test_if_recipe_function_is_correct(self):
         view = resolve(reverse('recipes:recipe', kwargs={'id': 1}))
@@ -98,3 +127,21 @@ class RecipeViewsTest(RecipeTestBase):
         content = response.content.decode('utf-8')
 
         self.assertIn(needed_title, content)
+
+    def test_if_recipe_detail_template_not_loads_recipe_not_published(self):
+        """
+        Tests that unpublished recipes are actually not rendered.
+        Testa se receitas não publicadas realmente não são renderizadas.
+        """
+
+        recipe = self.make_recipe(is_published=False)
+
+        response = self.client.get(reverse(
+            'recipes:recipe',
+            kwargs={
+                'id': recipe.category.id,
+            }
+        )
+        )
+
+        self.assertEqual(response.status_code, 404)
