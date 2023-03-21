@@ -1,12 +1,11 @@
-from django.contrib.auth.models import User
-from django.test import TestCase
 from django.urls import resolve, reverse
 
 from recipes import views
-from recipes.models import Category, Recipe
+
+from .test_recipe_base import RecipeTestBase
 
 
-class RecipeViewsTest(TestCase):
+class RecipeViewsTest(RecipeTestBase):
 
     def test_if_rootpage_function_is_correct(self):
         view = resolve(reverse('recipes:home'))
@@ -28,29 +27,10 @@ class RecipeViewsTest(TestCase):
         )
 
     def test_if_home_templates_loads_recipes(self):
-        category = Category.objects.create(name='Category')
-        author = User.objects.create_user(
-            first_name='User first name',
-            last_name='User last name',
-            username='UserName',
-            password='password21321',
-            email='email@email.com',
-        )
-        recipe = Recipe.objects.create(
-            category=category,
-            author=author,
-            title='Recipe title',
-            description='Recipe description',
-            slug='recipe-slug',
-            preparation_time=10,
-            preparation_time_unit='Minutos',
-            servings=5,
-            servings_unit='Porções',
-            preparation_steps='Recipe preparation steps',
-            preparation_steps_is_html=False,
-            is_published=True,
-            cover='recipes/covers/2023/03/08/pexels-team-picsfast-8753672.jpg',
-        )
+
+        self.make_recipe(author_data={
+            'first_name': 'Jose'
+        })
 
         response = self.client.get(reverse('recipes:home'))
         recipes = response.context['recipes']
@@ -65,6 +45,7 @@ class RecipeViewsTest(TestCase):
         self.assertIn('Recipe description', content)
         self.assertIn('Recipe title', content)
         self.assertIn('5 Porções', content)
+        self.assertIn('Jose', content)
 
     def test_if_category_function_is_correct(self):
         view = resolve(reverse('recipes:category',

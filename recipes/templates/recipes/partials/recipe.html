@@ -1,16 +1,27 @@
 <div class="recipe recipe-list-item">
-    <div class="recipe-cover">
-        <a href="{% url 'recipes:recipe' recipe.id %}">
+    {% if is_detail_page is True %}
+        <div class="recipe-cover">
             <img src="{{ recipe.cover.url }}" alt="Temporário">
-        </a>
-    </div>
-    <div class="recipe-title-container">
-        <h2 class="recipe-title">
+        </div>
+        <div class="recipe-title-container">
+            <h2 class="recipe-title">
+                {{ recipe.title }}
+            </h2>
+        </div>
+    {% else %}
+        <div class="recipe-cover">
             <a href="{% url 'recipes:recipe' recipe.id %}">
-            {{ recipe.title }}
+                <img src="{{ recipe.cover.url }}" alt="Temporário">
             </a>
-        </h2>
-    </div>
+        </div>
+        <div class="recipe-title-container">
+            <h2 class="recipe-title">
+                <a href="{% url 'recipes:recipe' recipe.id %}">
+                {{ recipe.title }}
+                </a>
+            </h2>
+        </div>
+    {% endif %}
 
     <div class="recipe-author">
         
