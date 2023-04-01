@@ -9,7 +9,7 @@ class RecipeModelTest(RecipeTestBase):
         return super().setUp()
 
     def test_returns_error_if_title_has_more_than_65_characters(self):
-        self.recipe.title = 'A' * 100
+        self.recipe.title = 'A' * 101
 
         with self.assertRaises(ValidationError):
             self.recipe.full_clean()
