@@ -55,3 +55,9 @@ class RecipeModelTest(RecipeTestBase):
             recipe.is_published,
             msg="Recipe is_published isn't False"
         )
+
+    def test_recipe_string_representation(self):
+        self.recipe.title = 'Testing representation'
+        self.recipe.full_clean()
+        self.recipe.save()
+        self.assertEqual(str(self.recipe), 'Testing representation')
