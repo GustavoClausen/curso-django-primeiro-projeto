@@ -48,6 +48,6 @@ def search(request):
         raise Http404()
 
     return render(request, 'recipes/pages/search.html', context={
-        'page_title': f'Pesquisando por "{search_term}"',
+        'page_title': f'Pesquisa por "{search_term}"',
         'search_term': search_term,
     })

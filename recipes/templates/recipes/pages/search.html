@@ -13,7 +13,8 @@
     {% empty %}
 
         <div class="center m-y">
-            <h1>Não achamos receitas com os dados "{{ search_term }}"</h1>
+            <h1>Receita não encontrada</h1>
+            <p>Não há receitas com o termo "<b>{{ search_term }}</b>"</p>
         </div>
     
     {% endfor %}
