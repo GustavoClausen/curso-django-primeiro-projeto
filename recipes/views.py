@@ -50,9 +50,15 @@ def search(request):
 
     recipes = Recipe.objects.filter(
         # icontains --> ignora letras maísculas ou minúsculas
-        Q(title__icontains=search_term) |
-        Q(description__icontains=search_term),
+        Q(
+            Q(title__icontains=search_term) |
+            Q(description__icontains=search_term),
+        ),
+        is_published=True,
     ).order_by('-id')
+
+    # recipes = recipes.order_by('-id')
+    # recipes = recipes.filter(is_published=True)
 
     return render(request, 'recipes/pages/search.html', context={
         'page_title': f'Pesquisa por "{search_term}"',
