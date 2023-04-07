@@ -13,7 +13,7 @@ ITEMS_PER_PAGE = int(os.environ.get('ITEMS_PER_PAGE', 6))
 
 def root_page(request):
 
-    messages.success(request, 'Seja bem vindo à página HOME')
+    messages.warning(request, 'Seja bem vindo à página HOME')
 
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
 
