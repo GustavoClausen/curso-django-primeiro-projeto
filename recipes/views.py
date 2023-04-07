@@ -5,6 +5,8 @@ from django.shortcuts import get_list_or_404, get_object_or_404, render
 from recipes.models import Recipe
 from utils.pagination import make_pagination
 
+ITEMS_PER_PAGE = 9
+
 
 def root_page(request):
 
@@ -13,7 +15,7 @@ def root_page(request):
     page_obj, pagination_range = make_pagination(
         request=request,
         queryset=recipes,
-        items_per_page=9,
+        items_per_page=ITEMS_PER_PAGE,
     )
 
     return render(request, 'recipes/pages/home.html', context={
@@ -45,7 +47,7 @@ def category(request, category_id):
     page_obj, pagination_range = make_pagination(
         request=request,
         queryset=recipes,
-        items_per_page=9,
+        items_per_page=ITEMS_PER_PAGE,
     )
 
     return render(request, 'recipes/pages/category.html', context={
@@ -76,7 +78,7 @@ def search(request):
     page_obj, pagination_range = make_pagination(
         request=request,
         queryset=recipes,
-        items_per_page=9,
+        items_per_page=ITEMS_PER_PAGE,
     )
 
     return render(request, 'recipes/pages/search.html', context={
