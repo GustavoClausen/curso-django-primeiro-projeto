@@ -1,28 +1,19 @@
-from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http.response import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404, render
 
 from recipes.models import Recipe
-from utils.pagination import make_pagination_range
+from utils.pagination import make_pagination
 
 
 def root_page(request):
 
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
 
-    try:
-        current_page = int(request.GET.get('page', 1))
-    except ValueError:
-        current_page = 1
-
-    paginator = Paginator(recipes, 9)
-    page_obj = paginator.get_page(current_page)
-
-    pagination_range = make_pagination_range(
-        page_range=paginator.page_range,
-        qty_pages=4,
-        current_page=current_page,
+    page_obj, pagination_range = make_pagination(
+        request=request,
+        queryset=recipes,
+        items_per_page=9,
     )
 
     return render(request, 'recipes/pages/home.html', context={
@@ -51,9 +42,16 @@ def category(request, category_id):
             is_published=True
         ).order_by('-id'))
 
+    page_obj, pagination_range = make_pagination(
+        request=request,
+        queryset=recipes,
+        items_per_page=9,
+    )
+
     return render(request, 'recipes/pages/category.html', context={
-        'recipes': recipes,
-        'title': f'Category - {recipes[0].category.name}'
+        'recipes': page_obj,
+        'pagination_range': pagination_range,
+        'title': f'Category - {recipes[0].category.name}',
     })
 
 
@@ -75,8 +73,16 @@ def search(request):
     # recipes = recipes.order_by('-id')
     # recipes = recipes.filter(is_published=True)
 
+    page_obj, pagination_range = make_pagination(
+        request=request,
+        queryset=recipes,
+        items_per_page=9,
+    )
+
     return render(request, 'recipes/pages/search.html', context={
         'page_title': f'Pesquisa por "{search_term}"',
         'search_term': search_term,
-        'recipes': recipes,
+        'recipes': page_obj,
+        'pagination_range': pagination_range,
+        'additional_url_query': f'&s={search_term}',
     })

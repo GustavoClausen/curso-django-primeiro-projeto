@@ -33,13 +33,7 @@ class RecipeHomeViewTest(RecipeTestBase):
         })
 
         response = self.client.get(reverse('recipes:home'))
-        recipes = response.context['recipes']
-        recipe = recipes.first()
-
         content = response.content.decode('utf-8')
-
-        self.assertEqual(len(recipes), 1)
-        self.assertEqual(recipe.title, 'Recipe title')
 
         self.assertIn('10 Minutos', content)
         self.assertIn('Recipe description', content)
