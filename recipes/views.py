@@ -1,6 +1,5 @@
 import os
 
-from django.contrib import messages
 from django.db.models import Q
 from django.http.response import Http404
 from django.shortcuts import get_list_or_404, get_object_or_404, render
@@ -12,11 +11,6 @@ ITEMS_PER_PAGE = int(os.environ.get('ITEMS_PER_PAGE', 6))
 
 
 def root_page(request):
-
-    messages.success(request, 'Exibindo mensagem de success')
-    messages.info(request, 'Exibindo mensagem de info')
-    messages.warning(request, 'Exibindo mensagem de warning')
-    messages.error(request, 'Exibindo mensagem de error')
 
     recipes = Recipe.objects.filter(is_published=True).order_by('-id')
 
