@@ -1,5 +1,8 @@
+import re
+
 from django import forms
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 
 def add_attr(field, attr_name, attr_new_val):
@@ -8,19 +11,40 @@ def add_attr(field, attr_name, attr_new_val):
 
 
 def add_placeholder(field, placeholder_value):
-    field.widget.attrs['placeholder'] = f'{placeholder_value}'.strip()
+    add_attr(field, 'placeholder', placeholder_value)
+
+
+def strong_password(password):
+    regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')
+
+    if not regex.match(password):
+        raise ValidationError(
+            ('A senha precisa ter letras maísculas, minúsculas e números.'),
+            code='Invalid'
+        )
+
+    return
 
 
 class RegisterForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        add_placeholder(self.fields['first_name'], 'Insira seu nome')
-        add_placeholder(self.fields['last_name'], 'Insira seu sobrenome')
+        add_placeholder(self.fields['first_name'], 'Insira o seu nome')
+        add_placeholder(self.fields['last_name'], 'Insira o seu sobrenome')
         add_placeholder(self.fields['username'],
-                        'Insira o nome do seu usuário')
-        add_placeholder(self.fields['email'], 'Insira seu e-mail')
-        add_placeholder(self.fields['password'], 'Insira uma senha')
+                        'Exemplo: João_Silva')
+        add_placeholder(self.fields['email'], 'Exemplo: seunome@email.com')
+
+    password = forms.CharField(
+        required=True,
+        label=('Senha'),
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Insira uma senha',
+        }),
+        help_text='A senha deve ter no mínimo 10 caracteres.',
+        validators=[strong_password],
+    )
 
     password2 = forms.CharField(
         required=True,
@@ -28,10 +52,6 @@ class RegisterForm(forms.ModelForm):
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Repita a senha inserida',
         }),
-        # error_messages={
-        #     'required': 'A senha é obrigatória.'
-        # },
-        help_text=('A senha deve ter pelo menos 10 caracteres.'),
     )
 
     class Meta:
@@ -66,16 +86,52 @@ class RegisterForm(forms.ModelForm):
 
         widgets = {
             'first_name': forms.TextInput(attrs={
-                'placeholder': 'Insira o seu nome aqui',
-                'class': 'input text-input teste',
+                'class': 'testando-classe',
             }),
-            'last_name': forms.TextInput(attrs={
-                'placeholder': 'Insira o seu sobrenome aqui'
-            }),
-            'email': forms.TextInput(attrs={
-                'placeholder': 'exemplo@email.com.br'
-            }),
+            'last_name': forms.TextInput(),
+            'username': forms.TextInput(),
+            'email': forms.EmailInput(),
             'password': forms.PasswordInput(attrs={
-                'placeholder': 'Insira a sua senha aqui'
+                'placeholder': 'Insira uma senha',
             })
         }
+
+    def clean_password(self):
+
+        data = self.cleaned_data.get('password')
+
+        if 'teste' in data:
+            raise ValidationError(
+                'O valor %(value)s não é aceito',
+                code='invalid',
+                params={'value': '"teste"'},
+            )
+
+        return data
+
+    def clean_first_name(self):
+        data = self.cleaned_data.get('first_name')
+
+        if 'Jose' in data:
+            raise ValidationError(
+                'O valor %(value)s não é aceito',
+                code='invalid',
+                params={'value': '"Jose"'},
+            )
+
+        return data
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        password = cleaned_data.get('password')
+        password2 = cleaned_data.get('password2')
+
+        if password != password2:
+            erro = ValidationError(
+                'As senhas inseridas são diferentes',
+                code='invalid',
+            )
+            raise ValidationError({
+                'password': erro,
+            })
