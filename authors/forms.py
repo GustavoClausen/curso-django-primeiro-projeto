@@ -93,31 +93,6 @@ class RegisterForm(forms.ModelForm):
             'email': forms.EmailInput(),
         }
 
-    def clean_password(self):
-
-        data = self.cleaned_data.get('password')
-
-        if 'teste' in data:
-            raise ValidationError(
-                'O valor %(value)s não é aceito',
-                code='invalid',
-                params={'value': '"teste"'},
-            )
-
-        return data
-
-    def clean_first_name(self):
-        data = self.cleaned_data.get('first_name')
-
-        if 'Jose' in data:
-            raise ValidationError(
-                'O valor %(value)s não é aceito',
-                code='invalid',
-                params={'value': '"Jose"'},
-            )
-
-        return data
-
     def clean(self):
         cleaned_data = super().clean()
 
