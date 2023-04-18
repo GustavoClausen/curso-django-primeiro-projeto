@@ -20,7 +20,7 @@ def strong_password(password):
     if not regex.match(password):
         raise ValidationError(
             ('A senha precisa ter letras maísculas, minúsculas e números.'),
-            code='Invalid'
+            code='invalid'
         )
 
     return
@@ -91,9 +91,6 @@ class RegisterForm(forms.ModelForm):
             'last_name': forms.TextInput(),
             'username': forms.TextInput(),
             'email': forms.EmailInput(),
-            'password': forms.PasswordInput(attrs={
-                'placeholder': 'Insira uma senha',
-            })
         }
 
     def clean_password(self):
