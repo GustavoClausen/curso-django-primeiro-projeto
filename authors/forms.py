@@ -36,8 +36,26 @@ class RegisterForm(forms.ModelForm):
                         'Exemplo: João_Silva')
         add_placeholder(self.fields['email'], 'Exemplo: seunome@email.com')
 
+    first_name = forms.CharField(
+        error_messages={'required': 'Este campo é obrigatório.'},
+        # required=True,    Já é true por padrão
+        label='Nome',
+    )
+
+    last_name = forms.CharField(
+        error_messages={'required': 'Este campo é obrigatório.'},
+        # required=True,    Já é true por padrão
+        label='Sobrenome',
+    )
+
+    email = forms.EmailField(
+        # required=True,    Já é true por padrão
+        error_messages={'required': 'Este campo é obrigatório.'},
+        label='E-mail',
+    )
+
     password = forms.CharField(
-        required=True,
+        # required=True,    Já é true por padrão
         label=('Senha'),
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Insira uma senha',
@@ -47,7 +65,7 @@ class RegisterForm(forms.ModelForm):
     )
 
     password2 = forms.CharField(
-        required=True,
+        # required=True,    Já é true por padrão
         label=('Confirme a senha'),
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Repita a senha inserida',
