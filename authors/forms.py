@@ -48,6 +48,17 @@ class RegisterForm(forms.ModelForm):
         label='Sobrenome',
     )
 
+    username = forms.CharField(
+        label='Usuário',
+        min_length=4,
+        max_length=150,
+        help_text='De 4 a 150 caracteres. Letras, números ou @/./+/-/_ apenas.',  # noqa 501
+        error_messages={
+            'min_length': 'Usuário deve possuir no mínimo 4 caracteres.',
+            'max_length': 'Usuário deve possuir no máximo 150 caracteres.',
+        }
+    )
+
     email = forms.EmailField(
         # required=True,    Já é true por padrão
         error_messages={'required': 'Este campo é obrigatório.'},
@@ -93,7 +104,6 @@ class RegisterForm(forms.ModelForm):
 
         help_texts = {
             'email': '',
-            'username': '',
         }
 
         # error_messages = {
@@ -119,7 +129,7 @@ class RegisterForm(forms.ModelForm):
 
         if password != password2:
             erro = ValidationError(
-                'As senhas inseridas são diferentes',
+                'As senhas inseridas são diferentes.',
                 code='invalid',
             )
             raise ValidationError({
