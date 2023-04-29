@@ -1,8 +1,10 @@
+import pytest
 from selenium.webdriver.common.by import By
 
 from .base import RecipeBaseFunctionalTest
 
 
+@pytest.mark.functional_test
 class RecipeHomePageFunctionalTest(RecipeBaseFunctionalTest):
 
     def test_recipe_home_page_without_recipe_not_found_messages(self):
