@@ -127,6 +127,10 @@ h6 {
     padding-top: 0;
 }
 
+.main-content.title-form {
+    padding-top: var(--spacing-gutter-medium);
+}
+
 .main-content-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));

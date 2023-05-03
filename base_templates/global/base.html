@@ -9,7 +9,10 @@
 <body>
 
     {% include 'global/partials/header.html' %}
-    {% include 'global/partials/search.html' %}
+    
+    {% if not not_show_search_input %}
+        {% include 'global/partials/search.html' %}
+    {% endif %}
 
     <main class="main-content-container">
 

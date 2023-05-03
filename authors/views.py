@@ -15,6 +15,7 @@ def register_view(request):
     return render(request, 'author/pages/register_view.html', {
         'form': form,
         'form_action': reverse('authors:register_create'),
+        'not_show_search_input': True,
     })
 
 
@@ -42,7 +43,8 @@ def login_view(request):
     form = LoginForm()
     return render(request, 'author/pages/login.html', {
         'form': form,
-        'form_action': reverse('authors:login_create')
+        'form_action': reverse('authors:login_create'),
+        'not_show_search_input': True,
     })
 
 
