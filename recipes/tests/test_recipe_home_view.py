@@ -60,12 +60,7 @@ class RecipeHomeViewTest(RecipeTestBase):
     # Podemos usar de 2 formas. Como decorator ou abaixo na função
     def test_if_home_is_paginated(self):
 
-        for i in range(8):
-            kwargs = {
-                'author_data': {'username': f'u{i}'},
-                'slug': f'r{i}',
-            }
-            self.make_recipe(**kwargs)
+        self.make_recipe_in_batch(qtd=8)
 
         with patch('recipes.views.ITEMS_PER_PAGE', new=3):
             response = self.client.get(reverse('recipes:home'))
@@ -81,12 +76,7 @@ class RecipeHomeViewTest(RecipeTestBase):
 
     def test_invalid_page_query_uses_page_one(self):
 
-        for i in range(8):
-            kwargs = {
-                'author_data': {'username': f'u{i}'},
-                'slug': f'r{i}',
-            }
-            self.make_recipe(**kwargs)
+        self.make_recipe_in_batch(qtd=8)
 
         with patch('recipes.views.ITEMS_PER_PAGE', new=3):
 
