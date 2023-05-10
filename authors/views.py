@@ -66,7 +66,7 @@ def login_create(request):
             login(request, authenticated_user)
 
         else:
-            messages.error(request, 'Usuário ou senha inválidos.')
+            messages.error(request, 'Usuário ou senha inválido.')
 
     else:
         messages.error(request, 'Erro na validação do formulário.')
