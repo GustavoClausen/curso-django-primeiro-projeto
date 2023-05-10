@@ -1,0 +1,13 @@
+{% extends 'global/base.html' %}
+
+{% block title %}Dashboard - {{ user }}{% endblock title %}
+
+{% block content %}
+    <div class="main-content center container title-form">
+        <h1 class="title-form">Dashboard - {{ user }}</h1>
+        {% include 'author/pages/partials/login_message.html' %}
+    </div>
+
+    {% include 'global/partials/messages.html' %}
+
+{% endblock content %}
