@@ -6,6 +6,25 @@
     <div class="main-content center container title-form">
         <h1 class="title-form">Dashboard - {{ user }}</h1>
         {% include 'author/pages/partials/login_message.html' %}
+
+        <div class="authors-dashboard-container">
+            <h3>Your unpublished recipes.</h3>
+            <ul>
+                {% for recipe in recipes %}
+                    <li>
+                        <a href="">
+                            {{ recipe.title }}
+                        </a>
+                    </li>
+                {% empty %}
+                    <li>
+                        <p>
+                            You have no recipes awaiting publication.
+                        </p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 
     {% include 'global/partials/messages.html' %}
