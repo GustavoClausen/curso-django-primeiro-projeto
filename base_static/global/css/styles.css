@@ -450,6 +450,11 @@ h6 {
     margin: 1rem 0;
 }
 
+.authors-dashboard-container h3,
+.no-recipes-pending {
+    text-align: center;
+}
+
 /* classes genéricas */
 
 .center {

@@ -12,13 +12,13 @@
             <ul>
                 {% for recipe in recipes %}
                     <li>
-                        <a href="">
+                        <a href="{% url 'authors:dashboard_recipe_edit' recipe.id %}">
                             {{ recipe.title }}
                         </a>
                     </li>
                 {% empty %}
                     <li>
-                        <p>
+                        <p class="no-recipes-pending">
                             You have no recipes awaiting publication.
                         </p>
                     </li>
