@@ -100,7 +100,10 @@ def dashboard(request):
     return render(
         request,
         'author/pages/dashboard.html',
-        context={'recipes': recipes}
+        context={
+            'recipes': recipes,
+            'not_show_search_input': True,
+        }
     )
 
 
@@ -127,5 +130,6 @@ def dashboard_recipe_edit(request, id):
         'author/pages/dashboard_recipe.html',
         context={
             'form': form,
+            'not_show_search_input': True,
         }
     )

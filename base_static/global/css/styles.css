@@ -68,6 +68,15 @@ h6 {
     font-family: var(--font-headings);
 }
 
+img {
+    max-width: 100%;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
 .main-header-container {
     background-color: var(--color-primary-dark);
 }
@@ -360,7 +369,10 @@ h6 {
     color: var(--color-error-dark);
 }
 
-.form-content input {
+.form-content input,
+.form-content textarea,
+.form-content select
+ {
     width: 100%;
     padding: 1rem;
     border-radius: .4rem;
@@ -378,6 +390,10 @@ h6 {
 
 .inlineform {
     display: inline;
+}
+
+.span-2 {
+    grid-column: span 2;
 }
 
 
@@ -459,6 +475,10 @@ h6 {
 
 .center {
     text-align: center;
+}
+
+.left {
+    text-align: left;
 }
 
 .m-x {
