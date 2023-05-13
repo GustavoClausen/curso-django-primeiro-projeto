@@ -175,6 +175,7 @@ def dashboard_recipe_new(request):
         'author/pages/dashboard_recipe.html',
         context={
             'form': form,
+            'form_action': reverse('authors:dashboard_recipe_new'),
             'not_show_search_input': True,
         }
     )
