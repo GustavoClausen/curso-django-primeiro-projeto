@@ -6,15 +6,27 @@
     <div class="main-content center container title-form">
         <h1 class="title-form">Dashboard - {{ user }}</h1>
         {% include 'author/pages/partials/login_message.html' %}
+        {% include 'global/partials/messages.html' %}
 
         <div class="authors-dashboard-container">
             <h3>Your unpublished recipes.</h3>
             <ul>
                 {% for recipe in recipes %}
-                    <li>
+                    <li class="dash-item">
                         <a href="{% url 'authors:dashboard_recipe_edit' recipe.id %}">
                             {{ recipe.title }}
-                        </a>
+                        </a> -
+                        <form
+                            action="{% url 'authors:dashboard_recipe_delete'%}"
+                            method="post"
+                            class="inlineform form-delete"
+                        >
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ recipe.id }}">
+                            <button type="submit" class="plaintext-button">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
                     </li>
                 {% empty %}
                     <li>
@@ -26,7 +38,5 @@
             </ul>
         </div>
     </div>
-
-    {% include 'global/partials/messages.html' %}
 
 {% endblock content %}

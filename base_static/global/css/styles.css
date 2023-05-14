@@ -77,6 +77,14 @@ a {
     text-decoration: none;
 }
 
+button {
+    cursor: pointer;
+}
+
+.dash-item {
+    margin: .7rem auto;
+}
+
 .main-header-container {
     background-color: var(--color-primary-dark);
 }
