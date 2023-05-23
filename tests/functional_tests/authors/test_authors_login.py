@@ -30,7 +30,7 @@ class AuthorsLoginTest(AuthorsBaseTest):
         form.submit()
 
         self.assertIn(
-            f'Seja bem vindo(a), {user.username}. Clique aqui para sair.',
+            f'Seja bem vindo(a), {user.username}.',
             self.browser.find_element(By.TAG_NAME, 'body').text
         )
 
