@@ -9,9 +9,9 @@ from recipes.models import Recipe
 
 
 class DashboardRecipe(View):
-    def get_recipe(self, id):
+    def get_recipe(self, id=None):
         recipe = None
-        if id:
+        if id is not None:
             # Podemos usar get() também
             recipe = Recipe.objects.filter(
                 is_published=False,
@@ -32,12 +32,12 @@ class DashboardRecipe(View):
             }
         )
 
-    def get(self, request, id):
+    def get(self, request, id=None):
         recipe = self.get_recipe(id)
         form = AuthorRecipeForm(instance=recipe)
         return self.render_recipe(form)
 
-    def post(self, request, id):
+    def post(self, request, id=None):
         recipe = self.get_recipe(id)
         form = AuthorRecipeForm(
             data=request.POST or None,
@@ -52,6 +52,9 @@ class DashboardRecipe(View):
             recipe.save()
             messages.success(request, 'Receita editada com sucesso.')
             return redirect(
-                reverse('authors:dashboard_recipe_edit', args=(id,))
+                reverse(
+                    'authors:dashboard_recipe_edit',
+                    args=(recipe.id,)
+                )
             )
         return self.render_recipe(form)
