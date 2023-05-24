@@ -62,7 +62,7 @@ def login_create(request):
         )
 
         if authenticated_user is not None:
-            messages.success(request, 'Login realizado com sucesso.')
+            # messages.success(request, 'Login realizado com sucesso.')
             login(request, authenticated_user)
 
         else:
@@ -84,7 +84,7 @@ def logout_view(request):
         messages.error(request, 'Requisicao de logout negada.')
         return redirect(reverse('authors:login'))
 
-    messages.success(request, 'Deslogado com sucesso.')
+    # messages.success(request, 'Deslogado com sucesso.')
     logout(request)
     return redirect(reverse('authors:login'))
 

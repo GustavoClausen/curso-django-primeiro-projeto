@@ -394,6 +394,7 @@ button {
     cursor: pointer;
     color: var(--color-primary-hover);
     font-size: 1.6rem;
+    margin: 1rem auto;
 }
 
 .inlineform {
@@ -477,6 +478,39 @@ button {
 .authors-dashboard-container h3,
 .no-recipes-pending {
     text-align: center;
+}
+
+.add-text {
+    opacity: 0%;
+    transition: all 2200ms;
+    display: none;
+}
+
+.a-add-recipe:hover .add-text{
+    opacity: 100%;
+    display: inline;
+}
+
+.see-recipes-text {
+    opacity: 0%;
+    transition: all 2200ms;
+    display: none;
+}
+
+.a-see-recipe:hover .see-recipes-text{
+    opacity: 100%;
+    display: inline;
+}
+
+.exit-text {
+    opacity: 0%;
+    transition: all 2200ms;
+    display: none;
+}
+
+.plaintextbutton:hover .exit-text {
+    opacity: 100%;
+    display: inline;
 }
 
 /* classes genéricas */

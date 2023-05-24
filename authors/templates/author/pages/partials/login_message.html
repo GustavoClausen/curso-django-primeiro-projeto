@@ -4,10 +4,15 @@
         <form method="POST" action="{% url 'authors:logout' %}" class="inlineform">
             {% csrf_token %}
             <input type="hidden" name="username" value="{{ request.user.username }}">
-            <button class="plaintextbutton" type="submit">Clique aqui</button>
-            para sair.
+            <button class="plaintextbutton" type="submit">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="exit-text">Sair</span>
+            </button>
         </form>
         <br>
-        <a href="{% url 'authors:dashboard_recipe_new' %}">Clique aqui</a> cadastrar uma receita.
+        <a class="a-add-recipe" href="{% url 'authors:dashboard_recipe_new' %}">
+            <i class="fa fa-plus"></i>
+            <span class="add-text">Adicionar receita</span>
+        </a>
     </div>            
 {% endif %}
