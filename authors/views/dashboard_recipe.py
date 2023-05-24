@@ -56,11 +56,20 @@ class DashboardRecipe(View):
             recipe.preparation_steps_is_html = False
             recipe.is_published = False
             recipe.save()
-            messages.success(request, 'Receita editada com sucesso.')
+            messages.success(request, 'Receita criada com sucesso.')
             return redirect(
-                reverse(
-                    'authors:dashboard_recipe_edit',
-                    args=(recipe.id,)
-                )
+                reverse('authors:dashboard')
             )
         return self.render_recipe(form)
+
+
+@method_decorator(
+    login_required(login_url='authors:login', redirect_field_name='next'),
+    name='dispatch'
+)
+class DashboardRecipeDelete(DashboardRecipe):
+    def post(self, *args, **kwargs):
+        recipe = self.get_recipe(self.request.POST.get('id'))
+        recipe.delete()
+        messages.success(self.request, 'Deletado com sucesso.')
+        return redirect(reverse('authors:dashboard'))
