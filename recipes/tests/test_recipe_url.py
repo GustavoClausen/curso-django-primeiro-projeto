@@ -13,7 +13,7 @@ class RecipeURLsTest(TestCase):
         self.assertEqual(url, '/recipes/category/1/')
 
     def test_recipes_url_recipe_is_correct(self):
-        url = reverse('recipes:recipe', kwargs={'id': 1})
+        url = reverse('recipes:recipe', kwargs={'pk': 1})
         self.assertEqual(url, '/recipes/1/')
 
     def test_recipe_url_search_ir_correct(self):
