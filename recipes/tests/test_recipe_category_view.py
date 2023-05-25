@@ -10,7 +10,7 @@ class RecipeCategoryViewTest(RecipeTestBase):
     def test_if_category_function_is_correct(self):
         view = resolve(reverse('recipes:category',
                        kwargs={'category_id': 1}))
-        self.assertIs(view.func, views.category)
+        self.assertIs(view.func.view_class, views.RecipeListViewCategory)
 
     def test_if_category_function_returns_404_if_there_not_category_req(self):
         response = self.client.get(

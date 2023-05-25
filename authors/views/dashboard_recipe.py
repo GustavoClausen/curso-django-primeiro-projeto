@@ -56,7 +56,11 @@ class DashboardRecipe(View):
             recipe.preparation_steps_is_html = False
             recipe.is_published = False
             recipe.save()
-            messages.success(request, 'Receita criada com sucesso.')
+            if id is None:
+                messages.success(request, 'Criado com sucesso')
+            else:
+                messages.success(request, 'Editado com sucesso')
+
             return redirect(
                 reverse('authors:dashboard')
             )
@@ -71,5 +75,5 @@ class DashboardRecipeDelete(DashboardRecipe):
     def post(self, *args, **kwargs):
         recipe = self.get_recipe(self.request.POST.get('id'))
         recipe.delete()
-        messages.success(self.request, 'Deletado com sucesso.')
+        messages.success(self.request, 'Deletado com sucesso')
         return redirect(reverse('authors:dashboard'))

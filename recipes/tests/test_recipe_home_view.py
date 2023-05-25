@@ -11,7 +11,7 @@ class RecipeHomeViewTest(RecipeTestBase):
 
     def test_if_rootpage_function_is_correct(self):
         view = resolve(reverse('recipes:home'))
-        self.assertIs(view.func, views.root_page)
+        self.assertIs(view.func.view_class, views.RecipeListViewHome)
 
     def test_if_rootpage_function_returns_status_code_200(self):
         response = self.client.get(reverse('recipes:home'))

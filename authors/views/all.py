@@ -84,7 +84,7 @@ def logout_view(request):
         messages.error(request, 'Requisicao de logout negada.')
         return redirect(reverse('authors:login'))
 
-    # messages.success(request, 'Deslogado com sucesso.')
+    messages.success(request, 'Deslogado com sucesso.')
     logout(request)
     return redirect(reverse('authors:login'))
 
