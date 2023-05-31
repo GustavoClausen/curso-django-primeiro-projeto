@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),            # http://domínio.com/admin/
     path('', include('recipes.urls')),           # http://domínio.com
     path('authors/', include('authors.urls')),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
