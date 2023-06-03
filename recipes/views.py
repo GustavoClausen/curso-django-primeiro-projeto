@@ -4,12 +4,29 @@ from django.db.models import Q
 from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from django.http.response import Http404
+from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 
 from recipes.models import Recipe
 from utils.pagination import make_pagination
 
 ITEMS_PER_PAGE = int(os.environ.get('ITEMS_PER_PAGE', 6))
+
+
+def theory(request, *args, **kwargs):
+    # A query só será executada se for utilizado um valor dela
+    recipes = Recipe.objects.all()
+    recipes = recipes.filter(title__icontains='Teste')
+
+    context = {
+        'recipes': recipes,
+    }
+
+    return render(
+        request,
+        'recipes/pages/theory.html',
+        context=context,
+    )
 
 
 class RecipeListViewBase(ListView):
