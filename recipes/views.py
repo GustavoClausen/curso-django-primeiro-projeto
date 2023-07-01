@@ -1,6 +1,8 @@
 import os
 
-from django.db.models import Q
+from django.db.models import F, Q, Value
+from django.db.models.aggregates import Count
+from django.db.models.functions import Concat
 from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from django.http.response import Http404
@@ -15,11 +17,29 @@ ITEMS_PER_PAGE = int(os.environ.get('ITEMS_PER_PAGE', 6))
 
 def theory(request, *args, **kwargs):
     # A query só será executada se for utilizado um valor dela
-    recipes = Recipe.objects.all()
-    recipes = recipes.filter(title__icontains='Teste')
+    # recipes = Recipe.objects.all()
+    # recipes = recipes.filter(title__icontains='Teste')
+
+    # recipes = Recipe.objects.values('id', 'title') \
+    #     .filter(title__icontains='Vegano')
+    # number_of_recipes = recipes.aggregate(number=Count('id'))
+
+    recipes = Recipe.objects.all().annotate(
+        author_full_name=Concat(
+            F('author__username'),
+            Value(' ('),
+            F('author__first_name'),
+            Value(' '),
+            F('author__last_name'),
+            Value(')'),
+        )
+    )
+
+    number_of_recipes = recipes.aggregate(number=Count('id'))
 
     context = {
         'recipes': recipes,
+        'number_of_recipes': number_of_recipes['number'],
     }
 
     return render(

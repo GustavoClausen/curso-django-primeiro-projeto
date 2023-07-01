@@ -8,7 +8,20 @@
 </head>
 <body>
     <h1>Theory test</h1>
-    <!-- A consulta será executada apenas aqui -->
+    <!-- A consulta será executada apenas aqui 
     <p>Isso aqui veio do contexto: <b>{{recipes.0.title}}</b> </p>
+    -->
+    <h2>Total de receitas: {{number_of_recipes}}</h2>
+    {% for recipe in recipes %}
+        <div>
+            <li>
+                ID: {{recipe.id}} --- Título: {{recipe.title}} 
+                Nome completo: {{recipe.author_full_name}}
+            </li>
+        </div>
+    {% empty %}
+        <p>No recipes found</p>
+    {% endfor %}
+
 </body>
 </html>
