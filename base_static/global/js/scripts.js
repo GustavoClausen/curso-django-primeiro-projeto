@@ -41,6 +41,19 @@ function my_scope() {
            }
         }
     )();
-}
 
+    (() => {
+        const authorLogoutLinks = document.querySelectorAll('.authors-logout-link');
+        const formLogout = document.querySelector('.form-logout');
+    
+        for(const link of authorLogoutLinks) {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                formLogout.submit();
+            });
+        }
+    }
+    )();
+}
 my_scope()
+

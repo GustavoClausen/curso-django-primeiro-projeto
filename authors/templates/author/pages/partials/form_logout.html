@@ -1,0 +1,4 @@
+<form method="POST" action="{% url 'authors:logout' %}" class="inlineform form-logout">
+    {% csrf_token %}
+    <input type="hidden" name="username" value="{{ request.user.username }}">    
+</form>
