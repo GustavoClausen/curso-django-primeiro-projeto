@@ -11,7 +11,6 @@ function my_scope() {
             }
            }) 
     }
-
     (
         () => {
            const btnCloseMenu = document.querySelector('.btn-close-menu');
