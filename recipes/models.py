@@ -18,10 +18,7 @@ class Category(models.Model):
 
 
 class Recipe(models.Model):
-    title = models.CharField(
-        max_length=100,
-        verbose_name=_('Title'),
-    )
+    title = models.CharField(max_length=100)
     description = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     preparation_time = models.IntegerField()
@@ -33,7 +30,10 @@ class Recipe(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=False)
-    cover = models.ImageField(upload_to='recipes/covers/%Y/%m/%d/')
+    cover = models.ImageField(
+        upload_to='recipes/covers/%Y/%m/%d/',
+        blank=True,
+    )
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True, blank=True,
         default=None

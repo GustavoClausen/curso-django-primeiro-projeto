@@ -2,20 +2,25 @@
 
 <div class="recipe recipe-list-item">
     {% if is_detail_page is True %}
-        <div class="recipe-cover">
-            <img src="{{ recipe.cover.url }}" alt="Temporário">
-        </div>
+        {% if recipe.cover %}
+            <div class="recipe-cover">
+                <img src="{{ recipe.cover.url }}" alt="Temporário">
+            </div>
+        {% endif %}
         <div class="recipe-title-container">
             <h2 class="recipe-title">
                 {{ recipe.title }}
             </h2>
         </div>
     {% else %}
+        {% if recipe.cover %}
+        
         <div class="recipe-cover">
             <a href="{% url 'recipes:recipe' recipe.id %}">
                 <img src="{{ recipe.cover.url }}" alt="Temporário">
             </a>
         </div>
+        {% endif %}
         <div class="recipe-title-container">
             <h2 class="recipe-title">
                 <a href="{% url 'recipes:recipe' recipe.id %}">
