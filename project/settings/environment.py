@@ -12,6 +12,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'INSECURE')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.environ.get('DEBUG') == '1' else False
 
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
 ALLOWED_HOSTS: list[str] = ['*']
 
 ROOT_URLCONF = 'project.urls'
