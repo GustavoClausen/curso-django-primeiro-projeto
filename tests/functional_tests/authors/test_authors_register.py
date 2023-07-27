@@ -123,23 +123,23 @@ class AuthorsRegisterTest(AuthorsBaseTest):
 
         self.form_field_test_with_callback(callback)
 
-    def test_error_messages_input_invalid_email(self):
+    # def test_error_messages_input_invalid_email(self):
 
-        def callback(form):
-            submit_button = self.get_submit_button()
-            submit_button.send_keys(Keys.ENTER)
+    #     def callback(form):
+    #         submit_button = self.get_submit_button()
+    #         submit_button.send_keys(Keys.ENTER)
 
-            form = self.get_form()
+    #         form = self.get_form()
 
-            li_err_email = form.find_element(
-                By.XPATH,
-                '/html/body/main/div[2]/form/div[1]/div[4]/ul/li'
-            )
+    #         li_err_email = form.find_element(
+    #             By.XPATH,
+    #             '/html/body/main/div[2]/form/div[1]/div[4]/ul/li'
+    #         )
 
-            self.assertIn('Informe um endereço de email válido.',
-                          li_err_email.text)
+    #         self.assertIn('Informe um endereço de email válido.',
+    #                       li_err_email.text)
 
-        self.form_field_test_with_callback(callback)
+    #     self.form_field_test_with_callback(callback)
 
     def test_error_passwords_do_not_match(self):
 

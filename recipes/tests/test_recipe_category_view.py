@@ -1,6 +1,6 @@
 from django.urls import resolve, reverse
 
-from recipes import views
+from recipes.views import site
 
 from .test_recipe_base import RecipeTestBase
 
@@ -10,7 +10,7 @@ class RecipeCategoryViewTest(RecipeTestBase):
     def test_if_category_function_is_correct(self):
         view = resolve(reverse('recipes:category',
                        kwargs={'category_id': 1}))
-        self.assertIs(view.func.view_class, views.RecipeListViewCategory)
+        self.assertIs(view.func.view_class, site.RecipeListViewCategory)
 
     def test_if_category_function_returns_404_if_there_not_category_req(self):
         response = self.client.get(

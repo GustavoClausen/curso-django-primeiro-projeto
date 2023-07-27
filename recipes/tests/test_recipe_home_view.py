@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 from django.urls import resolve, reverse
 
-from recipes import views
+from recipes.views import site
 
 from .test_recipe_base import RecipeTestBase
 
@@ -11,7 +11,7 @@ class RecipeHomeViewTest(RecipeTestBase):
 
     def test_if_rootpage_function_is_correct(self):
         view = resolve(reverse('recipes:home'))
-        self.assertIs(view.func.view_class, views.RecipeListViewHome)
+        self.assertIs(view.func.view_class, site.RecipeListViewHome)
 
     def test_if_rootpage_function_returns_status_code_200(self):
         response = self.client.get(reverse('recipes:home'))
@@ -62,7 +62,7 @@ class RecipeHomeViewTest(RecipeTestBase):
 
         self.make_recipe_in_batch(qtd=8)
 
-        with patch('recipes.views.ITEMS_PER_PAGE', new=3):
+        with patch('recipes.views.site.ITEMS_PER_PAGE', new=3):
             response = self.client.get(reverse('recipes:home'))
 
             recipes = response.context['recipes']
@@ -78,7 +78,7 @@ class RecipeHomeViewTest(RecipeTestBase):
 
         self.make_recipe_in_batch(qtd=8)
 
-        with patch('recipes.views.ITEMS_PER_PAGE', new=3):
+        with patch('recipes.views.site.ITEMS_PER_PAGE', new=3):
 
             response = self.client.get(reverse('recipes:home') + '?page=1A')
 

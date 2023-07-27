@@ -42,7 +42,7 @@ class RecipeHomePageFunctionalTest(RecipeBaseFunctionalTest):
             self.browser.find_element(By.CLASS_NAME, 'main-content-list').text
         )
 
-    @patch('recipes.views.ITEMS_PER_PAGE', new=2)
+    @patch('recipes.views.site.ITEMS_PER_PAGE', new=2)
     def test_recipe_home_page_pagination(self):
         self.make_recipe_in_batch()
 

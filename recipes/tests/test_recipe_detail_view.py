@@ -1,6 +1,6 @@
 from django.urls import resolve, reverse
 
-from recipes import views
+from recipes.views import site
 
 from .test_recipe_base import RecipeTestBase
 
@@ -9,7 +9,7 @@ class RecipeDetailViewTest(RecipeTestBase):
 
     def test_if_recipe_function_is_correct(self):
         view = resolve(reverse('recipes:recipe', kwargs={'pk': 1}))
-        self.assertIs(view.func.view_class, views.RecipeDetail)
+        self.assertIs(view.func.view_class, site.RecipeDetail)
 
     def test_if_recipe_function_returns_404_if_there_not_recipe_required(self):
         response = self.client.get(
